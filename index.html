@@ -21,17 +21,14 @@
   --shadow:0 2px 16px rgba(26,47,110,0.08);
 }
 html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--navy);overflow-x:hidden;}
-
 .screen{display:none;min-height:100dvh;flex-direction:column;}
 .screen.active{display:flex;animation:fadeUp .28s ease;}
 @keyframes fadeUp{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:translateY(0)}}
-
 #loading{position:fixed;inset:0;background:rgba(247,244,238,.92);display:none;align-items:center;justify-content:center;z-index:999;flex-direction:column;gap:.8rem;}
 #loading.on{display:flex;}
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--tq);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .load-txt{font-size:.82rem;color:var(--muted);font-weight:500;}
-
 .btn{border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.97rem;padding:.95rem 1.8rem;cursor:pointer;width:100%;max-width:380px;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:.5rem;letter-spacing:.01em;}
 .btn-navy{background:var(--navy);color:#fff;}
 .btn-navy:hover{background:#142560;transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,47,110,.22);}
@@ -42,11 +39,8 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .btn:active{transform:scale(.97)!important;}
 .back{background:none;border:none;color:var(--muted);font-family:'Outfit',sans-serif;font-size:.82rem;cursor:pointer;padding:0;display:inline-flex;align-items:center;gap:.3rem;margin-bottom:1.4rem;}
 .back:hover{color:var(--navy);}
-
-.card{background:var(--white);border:1px solid var(--border);border-radius:16px;box-shadow:var(--shadow);}
 .inner{flex:1;display:flex;flex-direction:column;padding:1.6rem 1.5rem;max-width:440px;margin:0 auto;width:100%;}
 .inner-wide{flex:1;display:flex;flex-direction:column;padding:1.6rem 1.5rem;max-width:560px;margin:0 auto;width:100%;}
-
 .lbl{font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.45rem;}
 .inp{width:100%;background:var(--white);border:1.5px solid var(--border);border-radius:12px;color:var(--navy);font-family:'Outfit',sans-serif;font-size:1rem;padding:.85rem 1rem;outline:none;transition:border-color .2s;margin-bottom:1rem;}
 .inp:focus{border-color:var(--tq);}
@@ -63,7 +57,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .land-icao{font-size:.65rem;color:rgba(255,255,255,.4);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.4rem;}
 .land-title{font-size:clamp(1.9rem,7vw,2.8rem);font-weight:800;color:#fff;line-height:1.1;margin-bottom:.4rem;}
 .land-title span{color:var(--tq);}
-.land-dates{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.65);margin-bottom:0;}
+.land-dates{font-size:.85rem;font-weight:500;color:rgba(255,255,255,.65);}
 .land-body{padding:1.5rem;display:flex;flex-direction:column;align-items:center;gap:1rem;max-width:440px;margin:0 auto;width:100%;}
 .prize-card{background:var(--white);border:1.5px solid rgba(26,47,110,.15);border-radius:16px;padding:1.1rem 1.3rem;width:100%;display:flex;align-items:center;gap:1rem;box-shadow:var(--shadow);}
 .prize-ico{font-size:2rem;flex-shrink:0;}
@@ -160,7 +154,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .lb-item.r2{border-color:rgba(160,160,160,.4);}
 .lb-item.r3{border-color:rgba(180,110,50,.35);}
 .lb-item.me{border-color:var(--tq);background:rgba(53,200,213,.04);}
-.lb-sep{text-align:center;color:var(--muted);font-size:.8rem;padding:.4rem;letter-spacing:.15em;}
+.lb-sep{text-align:center;color:var(--muted);font-size:.85rem;padding:.4rem;letter-spacing:.2em;}
 .lb-rank{font-size:1rem;font-weight:800;min-width:28px;text-align:center;}
 .lb-pseudo{flex:1;font-weight:700;font-size:.92rem;color:var(--navy);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
 .lb-score{font-weight:700;color:var(--navy);font-size:.92rem;}
@@ -168,7 +162,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .lb-empty{text-align:center;color:var(--muted);padding:2rem;font-size:.88rem;line-height:1.6;}
 .lb-badge-top{font-size:.65rem;font-weight:700;background:rgba(53,200,213,.12);color:var(--tq2);border:1px solid rgba(53,200,213,.3);border-radius:6px;padding:.1rem .4rem;margin-left:.3rem;}
 
-/* FUN SETUP */
+/* QUIZ DU CLUB SETUP */
 .fun-title{font-size:1.4rem;font-weight:800;color:var(--navy);margin-bottom:.3rem;}
 .fun-sub{font-size:.87rem;color:var(--muted);margin-bottom:1.4rem;line-height:1.5;}
 .q-count-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin-bottom:1.4rem;}
@@ -178,7 +172,8 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .cat-btn{background:var(--white);border:1.5px solid var(--border);border-radius:13px;color:var(--navy);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;padding:.9rem .7rem;cursor:pointer;text-align:center;transition:all .18s;box-shadow:var(--shadow);}
 .cat-btn:hover,.cat-btn.sel{border-color:var(--tq);background:rgba(53,200,213,.07);color:var(--navy);}
 .cat-ico{font-size:1.4rem;display:block;margin-bottom:.3rem;}
-.cat-stars{font-size:.68rem;color:var(--muted);display:block;margin-top:.25rem;letter-spacing:.02em;}
+.cat-name{display:block;font-weight:600;font-size:.82rem;}
+.cat-stars{font-size:.68rem;color:var(--muted);display:block;margin-top:.25rem;}
 .cat-btn.sel .cat-stars{color:var(--tq2);}
 
 #confetti{position:fixed;inset:0;pointer-events:none;z-index:998;display:none;}
@@ -217,10 +212,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
     </div>
     <button class="btn btn-navy" onclick="goRegister()">Tenter ma chance au jeu concours ✈</button>
     <div class="cta-sep">— ou —</div>
-    <button class="btn btn-tq" onclick="goFunSetup()">Tester mes connaissances aéronautiques</button>
-    <div id="btn-club" style="display:none;">
-      <button class="btn btn-outline" onclick="goPermanent()">Quiz du Club</button>
-    </div>
+    <button class="btn btn-tq" onclick="goClubSetup()">Tester mes connaissances aéronautiques</button>
     <button class="land-lb-btn" onclick="goLeaderboard(true)">Voir le classement →</button>
     <p class="land-note">1 participation par personne · Tirage au sort parmi les meilleurs scores</p>
   </div>
@@ -238,7 +230,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
     <label class="lbl" for="f-email">Ton email</label>
     <input class="inp" type="email" id="f-email" placeholder="prenom@exemple.com" autocomplete="email">
     <button class="btn btn-navy" onclick="startContest()" style="margin-top:.4rem;">Continuer →</button>
-    <p style="font-size:.72rem;color:var(--muted);margin-top:.9rem;text-align:center;line-height:1.6;">Tes données ne seront jamais partagées. Email utilisé uniquement en cas de victoire.</p>
+    <p style="font-size:.72rem;color:var(--muted);margin-top:.9rem;text-align:center;line-height:1.6;">Email utilisé uniquement en cas de victoire.</p>
   </div>
 </div>
 
@@ -250,22 +242,10 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
     <div class="intro-title">Prêt à jouer ?</div>
     <div class="intro-sub">Voici comment ça fonctionne avant de commencer.</div>
     <div class="rules-card">
-      <div class="rule-row">
-        <div class="rule-ico">❓</div>
-        <div class="rule-txt"><strong>20 questions</strong> sur l'aéronautique, la météo, la réglementation et l'Île d'Yeu.</div>
-      </div>
-      <div class="rule-row">
-        <div class="rule-ico">🎯</div>
-        <div class="rule-txt"><strong>Score maximum : 38 points.</strong> Les questions difficiles valent plus de points.</div>
-      </div>
-      <div class="rule-row">
-        <div class="rule-ico">🏆</div>
-        <div class="rule-txt"><strong>Tirage au sort</strong> parmi les meilleurs scores le 16 mai au soir.</div>
-      </div>
-      <div class="rule-row">
-        <div class="rule-ico">📧</div>
-        <div class="rule-txt"><strong>1 seule participation</strong> par email. Le gagnant sera contacté par email.</div>
-      </div>
+      <div class="rule-row"><div class="rule-ico">❓</div><div class="rule-txt"><strong>20 questions</strong> sur l'aéronautique, la météo, la réglementation et l'Île d'Yeu.</div></div>
+      <div class="rule-row"><div class="rule-ico">🎯</div><div class="rule-txt"><strong>Score maximum : 38 points.</strong> Les questions difficiles valent plus de points.</div></div>
+      <div class="rule-row"><div class="rule-ico">🏆</div><div class="rule-txt"><strong>Tirage au sort</strong> parmi les meilleurs scores le 16 mai au soir.</div></div>
+      <div class="rule-row"><div class="rule-ico">📧</div><div class="rule-txt"><strong>1 seule participation</strong> par email. Le gagnant sera contacté par email.</div></div>
     </div>
     <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;">Barème des points</div>
     <div class="pts-row">
@@ -277,7 +257,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
   </div>
 </div>
 
-<!-- QUIZ -->
+<!-- QUIZ (concours + club partagent le même écran) -->
 <div id="screen-quiz" class="screen">
   <div class="quiz-hdr">
     <div class="qh-row">
@@ -315,7 +295,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
     </div>
     <button class="share-btn" onclick="shareScore()">📤 Partager mon score</button>
     <button class="btn btn-navy" onclick="goLeaderboard(false)" style="margin-bottom:.6rem;">🏆 Voir le classement</button>
-    <button class="btn btn-outline" onclick="goPermanent()">Quiz du Club ✈</button>
+    <button class="btn btn-outline" onclick="goClubSetup()">Tester mes connaissances ✈</button>
   </div>
 </div>
 
@@ -332,65 +312,36 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
   </div>
 </div>
 
-<!-- FUN SETUP -->
-<div id="screen-fun-setup" class="screen">
-  <div class="inner">
-    <button class="back" onclick="show('landing')">← Retour</button>
-    <div class="fun-title">Quiz aéronautique ✈</div>
-    <div class="fun-sub">Combien de questions veux-tu ?</div>
-    <div class="q-count-grid" id="qc-grid"></div>
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;">Catégorie (optionnel)</div>
-    <div class="cat-grid" id="fun-cat-grid"></div>
-    <button class="btn btn-tq" onclick="startFun()">Jouer →</button>
-  </div>
-</div>
-
-<!-- FUN RESULTS -->
-<div id="screen-fun-results" class="screen">
-  <div class="res-inner">
-    <div class="score-ring">
-      <div class="score-num" id="fr-score">0</div>
-      <div class="score-of" id="fr-of">/ 0</div>
-    </div>
-    <div class="res-title" id="fr-title">Bien joué !</div>
-    <div class="res-msg">Quiz libre — aucun classement, juste pour le fun !</div>
-    <div class="review-section" id="fun-review-section" style="display:none;">
-      <div class="review-title">Questions ratées</div>
-      <div id="fun-review-list"></div>
-    </div>
-    <button class="share-btn" onclick="shareFunScore()">📤 Partager mon score</button>
-    <button class="btn btn-tq" onclick="goFunSetup()" style="margin-bottom:.6rem;">Rejouer</button>
-    <button class="btn btn-outline" onclick="show('landing')">Accueil</button>
-  </div>
-</div>
-
-<!-- PERMANENT MENU -->
-<div id="screen-permanent" class="screen">
+<!-- QUIZ DU CLUB — SETUP -->
+<div id="screen-club-setup" class="screen">
   <div class="inner">
     <button class="back" onclick="show('landing')">← Retour</button>
     <div class="fun-title">Quiz du Club ✈</div>
     <div class="fun-sub">Choisis une catégorie et un nombre de questions. Mis à jour régulièrement !</div>
-    <div class="cat-grid" id="perm-cat-grid"></div>
-    <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;" id="perm-qcount-label" style="display:none;">Nombre de questions</div>
-    <div class="q-count-grid" id="perm-qc-grid" style="display:none;"></div>
-    <button class="btn btn-navy" id="perm-start-btn" onclick="startPerm()" style="display:none;">Lancer →</button>
+    <div class="cat-grid" id="club-cat-grid"></div>
+    <div id="club-qcount-wrap" style="display:none;">
+      <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;">Nombre de questions</div>
+      <div class="q-count-grid" id="club-qc-grid"></div>
+    </div>
+    <button class="btn btn-tq" id="club-start-btn" onclick="startClub()" style="display:none;">Lancer →</button>
   </div>
 </div>
 
-<!-- PERMANENT RESULTS -->
-<div id="screen-perm-results" class="screen">
+<!-- RESULTS QUIZ DU CLUB -->
+<div id="screen-club-results" class="screen">
   <div class="res-inner">
     <div class="score-ring">
-      <div class="score-num" id="pr-score">0</div>
-      <div class="score-of" id="pr-of">/ 0</div>
+      <div class="score-num" id="cr-score">0</div>
+      <div class="score-of" id="cr-of">/ 0</div>
     </div>
-    <div class="res-title" id="pr-title">Bien joué !</div>
+    <div class="res-title" id="cr-title">Bien joué !</div>
     <div class="res-msg">Quiz du Club — sans pression, juste pour apprendre !</div>
-    <div class="review-section" id="perm-review-section" style="display:none;">
+    <div class="review-section" id="club-review-section" style="display:none;">
       <div class="review-title">Questions ratées</div>
-      <div id="perm-review-list"></div>
+      <div id="club-review-list"></div>
     </div>
-    <button class="btn btn-tq" onclick="goPermanent()" style="margin-bottom:.6rem;">Rejouer une catégorie</button>
+    <button class="share-btn" onclick="shareClubScore()">📤 Partager mon score</button>
+    <button class="btn btn-tq" onclick="goClubSetup()" style="margin-bottom:.6rem;">Rejouer une catégorie</button>
     <button class="btn btn-outline" onclick="show('landing')">Accueil</button>
   </div>
 </div>
@@ -403,38 +354,21 @@ var SITE='https://aeroclub-yeu-quiz.vercel.app';
 var DIFF={1:{lbl:'Facile',cls:'d1',pts:1},2:{lbl:'Moyen',cls:'d2',pts:2},3:{lbl:'Difficile',cls:'d3',pts:3}};
 var LTTRS=['A','B','C','D'];
 
-// Catégories pour le Fun mode (questions concours)
-var FUN_CATS=[
-  {id:null,       lbl:'Toutes',          ico:'🎲'},
-  {id:'Histoire', lbl:'Histoire',        ico:'📖'},
-  {id:'Technique',lbl:'Technique',       ico:'⚙️'},
-  {id:'Météo',    lbl:'Météo aéro',      ico:'🌤'},
-  {id:'Réglementation',lbl:'Réglementation',ico:'📋'},
-  {id:'Culture aéro',  lbl:'Culture aéro',  ico:'✈️'},
-  {id:'Aéroclub Île d\'Yeu',lbl:'Aéroclub IY',ico:'🏝'}
-];
-
-// Catégories pour le Quiz du Club (questions permanentes) avec niveaux
-var PERM_CATS=[
+var CLUB_CATS=[
   {id:'Aéroclub Île d\'Yeu',    lbl:'Aéroclub & Île d\'Yeu', ico:'🏝',  stars:'⭐⭐'},
   {id:'Aérodromes & Codes',      lbl:'Aérodromes & Codes',    ico:'✈️',  stars:'⭐⭐'},
-  {id:'Histoire de l\'aviation', lbl:'Histoire de l\'aviation',ico:'📖',  stars:'⭐'},
+  {id:'Histoire de l\'aviation', lbl:'Histoire de l\'aviation',ico:'📖', stars:'⭐'},
   {id:'Culture aéronautique',    lbl:'Culture aéronautique',  ico:'🌍',  stars:'⭐'},
   {id:'Météo aéro',              lbl:'Météo aéro',            ico:'🌤',  stars:'⭐⭐⭐'},
   {id:'Réglementation',          lbl:'Réglementation',        ico:'📋',  stars:'⭐⭐⭐'},
   {id:'Expert (Pilote)',         lbl:'Expert (Pilote)',        ico:'🎓',  stars:'⭐⭐⭐⭐'}
 ];
-
-var FUN_QCOUNTS=[5,10,15];
-var PERM_QCOUNTS=[5,10,15];
+var CLUB_QCOUNTS=[5,10,15];
 
 var player={pseudo:'',email:''};
 var mode='contest';
-var qs=[],qi=0,pts=0,maxPts=0;
-var answers=[];
-var selFunQCount=10,selFunCat=null;
-var selPermCat=null,selPermQCount=10;
-var lbFromResults=false;
+var qs=[],qi=0,pts=0,maxPts=0,answers=[];
+var selClubCat=null,selClubQCount=10;
 
 function load(on){document.getElementById('loading').className=on?'on':'';}
 function show(id){document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');});document.getElementById('screen-'+id).classList.add('active');window.scrollTo(0,0);}
@@ -451,7 +385,6 @@ async function sb(path,opts){
   return res.json();
 }
 
-// CONFETTI
 function launchConfetti(){
   var canvas=document.getElementById('confetti');
   canvas.style.display='block';canvas.width=window.innerWidth;canvas.height=window.innerHeight;
@@ -468,70 +401,46 @@ function launchConfetti(){
   frame();
 }
 
-// NAVIGATION
+// ── NAVIGATION ─────────────────────────────────────────────────────
 function goRegister(){show('register');}
 
-function goFunSetup(){
-  show('fun-setup');
-  var qcg=document.getElementById('qc-grid');qcg.innerHTML='';
-  FUN_QCOUNTS.forEach(function(n){
-    var b=document.createElement('button');
-    b.className='qc-btn'+(n===selFunQCount?' sel':'');
-    b.textContent=n;
-    b.onclick=function(){document.querySelectorAll('#qc-grid .qc-btn').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');selFunQCount=n;};
-    qcg.appendChild(b);
-  });
-  var fcg=document.getElementById('fun-cat-grid');fcg.innerHTML='';
-  FUN_CATS.forEach(function(cat){
-    var b=document.createElement('button');
-    b.className='cat-btn'+((cat.id===selFunCat||(!cat.id&&selFunCat===null))?' sel':'');
-    b.innerHTML='<span class="cat-ico">'+cat.ico+'</span>'+cat.lbl;
-    b.onclick=function(){document.querySelectorAll('#fun-cat-grid .cat-btn').forEach(function(x){x.classList.remove('sel');});b.classList.add('sel');selFunCat=cat.id;};
-    fcg.appendChild(b);
+function goClubSetup(){
+  show('club-setup');
+  var grid=document.getElementById('club-cat-grid');grid.innerHTML='';
+  selClubCat=null;selClubQCount=10;
+  document.getElementById('club-qcount-wrap').style.display='none';
+  document.getElementById('club-start-btn').style.display='none';
+  CLUB_CATS.forEach(function(cat){
+    var b=document.createElement('button');b.className='cat-btn';
+    b.innerHTML='<span class="cat-ico">'+cat.ico+'</span>'
+      +'<span class="cat-name">'+esc(cat.lbl)+'</span>'
+      +'<span class="cat-stars">'+cat.stars+'</span>';
+    b.onclick=function(){
+      document.querySelectorAll('#club-cat-grid .cat-btn').forEach(function(x){x.classList.remove('sel');});
+      b.classList.add('sel');selClubCat=cat.id;
+      // Afficher le sélecteur de questions
+      var wrap=document.getElementById('club-qcount-wrap');
+      var qg=document.getElementById('club-qc-grid');
+      wrap.style.display='block';qg.innerHTML='';
+      CLUB_QCOUNTS.forEach(function(n){
+        var qb=document.createElement('button');
+        qb.className='qc-btn'+(n===selClubQCount?' sel':'');
+        qb.textContent=n;
+        qb.onclick=function(){document.querySelectorAll('#club-qc-grid .qc-btn').forEach(function(x){x.classList.remove('sel');});qb.classList.add('sel');selClubQCount=n;};
+        qg.appendChild(qb);
+      });
+      document.getElementById('club-start-btn').style.display='flex';
+    };
+    grid.appendChild(b);
   });
 }
 
 async function goLeaderboard(fromLanding){
-  lbFromResults=!fromLanding;
-  var backBtn=document.getElementById('lb-back');
-  backBtn.onclick=fromLanding?function(){show('landing');}:function(){show('results');};
-  show('leaderboard');
-  await loadLB();
+  document.getElementById('lb-back').onclick=fromLanding?function(){show('landing');}:function(){show('results');};
+  show('leaderboard');await loadLB();
 }
 
-function goPermanent(){
-  show('permanent');
-  var pg=document.getElementById('perm-cat-grid');pg.innerHTML='';
-  selPermCat=null;selPermQCount=10;
-  document.getElementById('perm-qcount-label').style.display='none';
-  document.getElementById('perm-qc-grid').style.display='none';
-  document.getElementById('perm-start-btn').style.display='none';
-  PERM_CATS.forEach(function(cat){
-    var b=document.createElement('button');b.className='cat-btn';
-    b.innerHTML='<span class="cat-ico">'+cat.ico+'</span>'
-      +'<span style="display:block;font-weight:600;font-size:.82rem;">'+esc(cat.lbl)+'</span>'
-      +'<span class="cat-stars">'+cat.stars+'</span>';
-    b.onclick=function(){
-      document.querySelectorAll('#perm-cat-grid .cat-btn').forEach(function(x){x.classList.remove('sel');});
-      b.classList.add('sel');selPermCat=cat.id;
-      // Afficher le sélecteur de nb de questions
-      var ql=document.getElementById('perm-qcount-label');
-      var qg=document.getElementById('perm-qc-grid');
-      ql.style.display='block';qg.style.display='grid';qg.innerHTML='';
-      PERM_QCOUNTS.forEach(function(n){
-        var qb=document.createElement('button');
-        qb.className='qc-btn'+(n===selPermQCount?' sel':'');
-        qb.textContent=n;
-        qb.onclick=function(){document.querySelectorAll('#perm-qc-grid .qc-btn').forEach(function(x){x.classList.remove('sel');});qb.classList.add('sel');selPermQCount=n;};
-        qg.appendChild(qb);
-      });
-      document.getElementById('perm-start-btn').style.display='flex';
-    };
-    pg.appendChild(b);
-  });
-}
-
-// CONTEST
+// ── CONTEST ─────────────────────────────────────────────────────────
 async function startContest(){
   var pseudo=document.getElementById('f-pseudo').value.trim();
   var email=document.getElementById('f-email').value.trim();
@@ -543,15 +452,18 @@ async function startContest(){
     var check=await sb('scores?email=eq.'+encodeURIComponent(email)+'&select=id,pseudo,score');
     if(check&&check.length>0){
       load(false);
-      errEl.textContent='Cet email a déjà participé (pseudo : '+check[0].pseudo+', score : '+check[0].score+' pts). Un seul essai par personne !';
+      errEl.textContent='Cet email a déjà participé (pseudo : '+check[0].pseudo+', score : '+check[0].score+' pts). Un seul essai !';
       errEl.className='err on';
       player={pseudo:check[0].pseudo,email:email};
-      document.getElementById('btn-club').style.display='block';
       return;
     }
     player={pseudo:pseudo,email:email};
     load(false);show('intro');
-  }catch(e){load(false);errEl.textContent='Erreur réseau. Vérifie ta connexion et réessaie.';errEl.className='err on';}
+  }catch(e){
+    load(false);
+    errEl.textContent='Erreur réseau. Vérifie ta connexion et réessaie.';
+    errEl.className='err on';
+  }
 }
 
 async function launchContest(){
@@ -564,22 +476,20 @@ async function launchContest(){
   }catch(e){load(false);toast('Erreur de chargement.');}
 }
 
-// FUN MODE
-async function startFun(){
+// ── QUIZ DU CLUB ─────────────────────────────────────────────────────
+async function startClub(){
+  if(!selClubCat) return;
   load(true);
   try{
-    var path=selFunCat
-      ?'questions?is_contest=eq.true&category=eq.'+encodeURIComponent(selFunCat)+'&select=*'
-      :'questions?is_contest=eq.true&select=*';
-    var data=await sb(path);
-    if(!data||data.length===0){load(false);toast('Pas assez de questions dans cette catégorie.');return;}
-    qs=shuffle(data).slice(0,Math.min(selFunQCount,data.length));
-    qi=0;pts=0;answers=[];maxPts=qs.length;mode='fun';
+    var data=await sb('questions?is_contest=eq.false&category=eq.'+encodeURIComponent(selClubCat)+'&select=*');
+    if(!data||data.length===0){load(false);toast('Pas encore de questions dans cette catégorie.');return;}
+    qs=shuffle(data).slice(0,Math.min(selClubQCount,data.length));
+    qi=0;pts=0;answers=[];maxPts=qs.length;mode='club';
     load(false);show('quiz');renderQ();
-  }catch(e){load(false);toast('Erreur de chargement.');}
+  }catch(e){load(false);toast('Erreur réseau.');}
 }
 
-// QUIZ RENDER
+// ── QUIZ RENDER ──────────────────────────────────────────────────────
 function renderQ(){
   var q=qs[qi],tot=qs.length,d=DIFF[q.difficulty]||DIFF[1];
   var isContest=(mode==='contest');
@@ -614,15 +524,14 @@ function ansQ(chosen,correct,q){
   if(isCorrect){
     var earned=(mode==='contest')?d.pts:1;
     pts+=earned;
-    btns[correct].classList.add('correct');
-    btns[correct].classList.add('flash-ok');
+    btns[correct].classList.add('correct','flash-ok');
     document.getElementById('qh-score').textContent=(mode==='contest')?(pts+' pt'+(pts>1?'s':'')):(pts+' / '+(qi+1));
     fb.textContent='✓ Bonne réponse !'+(mode==='contest'?' +'+earned+' pt'+(earned>1?'s':''):'');
     fb.className='feedback fb-ok on';
   } else {
     btns[chosen].classList.add('wrong');
     if(mode==='contest'){
-      // Anti-triche : ne pas révéler la bonne réponse en mode concours
+      // Anti-triche : ne pas révéler la bonne réponse
       fb.textContent='✗ Mauvaise réponse…';
     } else {
       btns[correct].classList.add('correct');
@@ -631,8 +540,8 @@ function ansQ(chosen,correct,q){
     fb.className='feedback fb-ko on';
   }
 
-  // Explication uniquement hors concours
-  if(mode!=='contest' && q.explanation){
+  // Explication uniquement en mode club
+  if(mode==='club' && q.explanation){
     var ex=document.getElementById('q-expl');
     ex.innerHTML='<strong>💡 Le saviez-vous ?</strong><br>'+esc(q.explanation);
     ex.className='expl-box on';
@@ -648,30 +557,26 @@ async function nextQ(){
   if(qi<qs.length-1){qi++;renderQ();}
   else{
     if(mode==='contest') await finishContest();
-    else if(mode==='fun') finishFun();
-    else finishPerm();
+    else finishClub();
   }
 }
 
+// ── FINISH ────────────────────────────────────────────────────────────
 async function finishContest(){
   load(true);
   try{
     await sb('scores',{method:'POST',headers:{'Prefer':'return=minimal'},body:JSON.stringify({pseudo:player.pseudo,email:player.email,score:pts,total_questions:qs.length})});
     localStorage.setItem('aiy_email',player.email);
     localStorage.setItem('aiy_pseudo',player.pseudo);
-    document.getElementById('btn-club').style.display='block';
   }catch(e){console.warn('save failed',e);}
   load(false);
   showResults('results','r-score','r-of','r-title','r-msg',pts,maxPts,'review-section','review-list',true);
   if(pts===maxPts) setTimeout(launchConfetti,400);
 }
 
-function finishFun(){
-  showResults('fun-results','fr-score','fr-of','fr-title','fr-msg',pts,qs.length,'fun-review-section','fun-review-list',false);
-}
-
-function finishPerm(){
-  showResults('perm-results','pr-score','pr-of','pr-title','pr-msg',pts,qs.length,'perm-review-section','perm-review-list',false);
+function finishClub(){
+  showResults('club-results','cr-score','cr-of','cr-title','cr-msg',pts,qs.length,'club-review-section','club-review-list',false);
+  if(pts===qs.length) setTimeout(launchConfetti,400);
 }
 
 function showResults(screen,scoreId,ofId,titleId,msgId,score,max,reviewSecId,reviewListId,isContest){
@@ -686,32 +591,30 @@ function showResults(screen,scoreId,ofId,titleId,msgId,score,max,reviewSecId,rev
   document.getElementById(titleId).textContent=title;
   document.getElementById(msgId).textContent=msg;
   var wrong=answers.filter(function(a){return !a.ok;});
-  var reviewSec=document.getElementById(reviewSecId);
-  var reviewList=document.getElementById(reviewListId);
+  var sec=document.getElementById(reviewSecId);
+  var lst=document.getElementById(reviewListId);
   if(wrong.length>0){
-    reviewSec.style.display='block';reviewList.innerHTML='';
+    sec.style.display='block';lst.innerHTML='';
     wrong.forEach(function(a){
       var div=document.createElement('div');div.className='review-item';
-      var contestReveal=isContest?('<div class="review-ans review-right">✓ Bonne réponse : '+esc(a.q.options[a.correct])+'</div>'):'';
       div.innerHTML='<div class="review-q">'+esc(a.q.question)+'</div>'
         +'<div class="review-ans review-wrong">✗ Ta réponse : '+esc(a.q.options[a.chosen])+'</div>'
-        +contestReveal;
-      reviewList.appendChild(div);
+        +(isContest?'<div class="review-ans review-right">✓ Bonne réponse : '+esc(a.q.options[a.correct])+'</div>':'');
+      lst.appendChild(div);
     });
-  } else {reviewSec.style.display='none';}
+  } else {sec.style.display='none';}
   show(screen);
-  if(pct===1) setTimeout(launchConfetti,400);
 }
 
-function shareScore(){doShare(pts,maxPts);}
-function shareFunScore(){doShare(pts,qs.length);}
-function doShare(score,max){
+function shareScore(){doShare(pts,maxPts,'concours');}
+function shareClubScore(){doShare(pts,qs.length,'club');}
+function doShare(score,max,type){
   var txt='Je viens de faire '+score+'/'+max+' au Quiz Aéronautique de l\'Aéroclub de l\'Île d\'Yeu ! 🛩 Essaie aussi : '+SITE;
   if(navigator.share){navigator.share({title:'Quiz Aéroclub Île d\'Yeu',text:txt,url:SITE}).catch(function(){});}
   else{navigator.clipboard.writeText(txt).then(function(){toast('Résultat copié !')}).catch(function(){toast('Lien : '+SITE);});}
 }
 
-// LEADERBOARD - top 20 + position joueur si hors top 20
+// ── LEADERBOARD ── top 20 + position joueur si hors top 20 ──────────
 async function loadLB(){
   var el=document.getElementById('lb-list');el.innerHTML='<div class="lb-empty">Chargement…</div>';
   try{
@@ -722,7 +625,7 @@ async function loadLB(){
     var top20=data.slice(0,20);
     var myRank=-1;
     data.forEach(function(e,i){if(e.pseudo===player.pseudo&&myRank===-1) myRank=i+1;});
-    top20.forEach(function(entry,i){el.appendChild(makeLBItem(entry,i+1,entry.pseudo===player.pseudo,maxScore));});
+    top20.forEach(function(e,i){el.appendChild(makeLBItem(e,i+1,e.pseudo===player.pseudo,maxScore));});
     if(myRank>20){
       var sep=document.createElement('div');sep.className='lb-sep';sep.textContent='• • •';el.appendChild(sep);
       el.appendChild(makeLBItem(data[myRank-1],myRank,true,maxScore));
@@ -742,26 +645,12 @@ function makeLBItem(entry,rank,isMe,maxScore){
   return div;
 }
 
-// PERMANENT QUIZ
-async function startPerm(){
-  if(!selPermCat) return;
-  load(true);
-  try{
-    var data=await sb('questions?is_contest=eq.false&category=eq.'+encodeURIComponent(selPermCat)+'&select=*');
-    if(!data||data.length===0){load(false);toast('Pas encore de questions dans cette catégorie.');return;}
-    qs=shuffle(data).slice(0,Math.min(selPermQCount,data.length));
-    qi=0;pts=0;answers=[];maxPts=qs.length;mode='perm';
-    load(false);show('quiz');renderQ();
-  }catch(e){load(false);toast('Erreur réseau.');}
-}
-
-// INIT
+// ── INIT ─────────────────────────────────────────────────────────────
 (function(){
   var em=localStorage.getItem('aiy_email');
   var ps=localStorage.getItem('aiy_pseudo');
   if(em&&ps){
     player={pseudo:ps,email:em};
-    document.getElementById('btn-club').style.display='block';
     document.getElementById('f-email').value=em;
     document.getElementById('f-pseudo').value=ps;
   }
