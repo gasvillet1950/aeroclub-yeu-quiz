@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Quiz Concours — Aéroclub Île d'Yeu</title>
+<link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --tq:#35C8D5;
+  --navy:#1A2F6E;
+  --bg:#0A1530;
+  --card:rgba(255,255,255,0.06);
+  --border:rgba(53,200,213,0.2);
+  --easy:#22C55E;
+  --med:#F97316;
+  --hard:#EF4444;
+  --text:#EEF3FF;
+  --muted:rgba(238,243,255,0.5);
+  --gold:#FFD700;
+}
+html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--text);overflow-x:hidden;}
+
+/* SCREENS */
+.screen{display:none;min-height:100dvh;flex-direction:column;}
+.screen.active{display:flex;animation:fadeUp .3s ease;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+
+/* LOADING */
+#loading{position:fixed;inset:0;background:rgba(10,21,48,.92);display:none;align-items:center;justify-content:center;z-index:999;}
+#loading.on{display:flex;}
+.spinner{width:40px;height:40px;border:3px solid rgba(53,200,213,.2);border-top-color:var(--tq);border-radius:50%;animation:spin .8s linear infinite;}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* BUTTONS */
+.btn{border:none;border-radius:50px;font-family:'Outfit',sans-serif;font-weight:700;font-size:1rem;padding:.9rem 2rem;cursor:pointer;width:100%;max-width:340px;transition:transform .15s,box-shadow .15s,opacity .15s;display:block;text-align:center;}
+.btn:active{transform:scale(.97);}
+.btn-tq{background:var(--tq);color:var(--navy);}
+.btn-tq:hover{box-shadow:0 8px 24px rgba(53,200,213,.35);transform:translateY(-2px);}
+.btn-ghost{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,.15);margin-top:.75rem;}
+.btn-ghost:hover{border-color:var(--tq);color:var(--tq);}
+.btn-sm{font-size:.82rem;padding:.6rem 1.4rem;max-width:200px;}
+
+/* BACK */
+.back{background:none;border:none;color:var(--muted);font-family:'Outfit',sans-serif;font-size:.82rem;cursor:pointer;padding:0;display:flex;align-items:center;gap:.3rem;margin-bottom:1.5rem;}
+.back:hover{color:var(--tq);}
+
+/* ── LANDING ── */
+#screen-landing{align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center;position:relative;overflow:hidden;}
+.lnd-glow{position:absolute;top:-60px;left:50%;transform:translateX(-50%);width:500px;height:500px;background:radial-gradient(ellipse,rgba(53,200,213,.09) 0%,transparent 70%);pointer-events:none;}
+.lnd-cross{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);opacity:.04;width:min(95vw,440px);height:min(95vw,440px);pointer-events:none;}
+.badge{display:inline-block;background:var(--tq);color:var(--navy);font-weight:700;font-size:.68rem;letter-spacing:.15em;text-transform:uppercase;padding:.35rem .9rem;border-radius:2rem;margin-bottom:1.2rem;}
+.lnd-club{font-size:.78rem;font-weight:600;letter-spacing:.25em;text-transform:uppercase;color:var(--tq);margin-bottom:.25rem;}
+.lnd-icao{font-size:.68rem;color:var(--muted);letter-spacing:.15em;text-transform:uppercase;margin-bottom:1.4rem;}
+.lnd-title{font-size:clamp(2.2rem,8vw,3.4rem);font-weight:800;line-height:1.05;background:linear-gradient(135deg,#fff 0%,var(--tq) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:.5rem;}
+.lnd-dates{font-size:.95rem;font-weight:600;color:var(--tq);margin-bottom:1.8rem;letter-spacing:.04em;}
+.prize-card{background:var(--card);border:1px solid rgba(255,215,0,.25);border-radius:1rem;padding:1.1rem 1.4rem;margin-bottom:2rem;max-width:340px;width:100%;}
+.prize-label{font-size:.65rem;letter-spacing:.2em;text-transform:uppercase;color:var(--muted);margin-bottom:.3rem;}
+.prize-val{font-size:.97rem;font-weight:700;color:var(--gold);line-height:1.4;}
+.prize-ico{font-size:1.6rem;margin-bottom:.4rem;}
+.lnd-note{font-size:.72rem;color:var(--muted);margin-top:1.2rem;line-height:1.6;}
+
+/* ── REGISTER ── */
+#screen-register .inner{flex:1;display:flex;flex-direction:column;justify-content:center;padding:2rem 1.5rem;max-width:420px;margin:0 auto;width:100%;}
+.form-title{font-size:1.6rem;font-weight:700;margin-bottom:.3rem;}
+.form-sub{font-size:.88rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.5;}
+.lbl{font-size:.72rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:block;margin-bottom:.45rem;}
+.inp{width:100%;background:var(--card);border:1px solid var(--border);border-radius:.75rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:1rem;padding:.85rem 1rem;outline:none;transition:border-color .2s;margin-bottom:1rem;}
+.inp:focus{border-color:var(--tq);}
+.inp::placeholder{color:var(--muted);}
+.err{background:rgba(239,68,68,.12);border:1px solid rgba(239,68,68,.3);border-radius:.75rem;color:#FCA5A5;font-size:.85rem;padding:.7rem 1rem;margin-bottom:1rem;display:none;}
+.err.on{display:block;}
+
+/* ── QUIZ ── */
+.quiz-header{padding:1.2rem 1.5rem .5rem;max-width:560px;margin:0 auto;width:100%;}
+.qh-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.7rem;font-size:.78rem;}
+.qh-count{color:var(--muted);font-weight:500;}
+.qh-score{color:var(--tq);font-weight:700;}
+.prog-bg{background:rgba(255,255,255,.07);border-radius:2rem;height:4px;overflow:hidden;}
+.prog-fill{background:var(--tq);height:100%;border-radius:2rem;transition:width .4s ease;}
+.quiz-body{flex:1;padding:1.5rem;max-width:560px;margin:0 auto;width:100%;display:flex;flex-direction:column;}
+.diff-badge{display:inline-flex;align-items:center;gap:.35rem;font-size:.68rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:.28rem .7rem;border-radius:2rem;margin-bottom:1rem;width:fit-content;}
+.d1{background:rgba(34,197,94,.12);color:var(--easy);border:1px solid rgba(34,197,94,.25);}
+.d2{background:rgba(249,115,22,.12);color:var(--med);border:1px solid rgba(249,115,22,.25);}
+.d3{background:rgba(239,68,68,.12);color:var(--hard);border:1px solid rgba(239,68,68,.25);}
+.ddot{width:5px;height:5px;border-radius:50%;background:currentColor;}
+.q-cat{font-size:.7rem;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;margin-bottom:.6rem;font-weight:500;}
+.q-text{font-size:clamp(1rem,3.5vw,1.25rem);font-weight:600;line-height:1.45;margin-bottom:1.8rem;}
+.answers{display:flex;flex-direction:column;gap:.7rem;}
+.ans-btn{background:var(--card);border:1px solid var(--border);border-radius:.85rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.93rem;padding:.95rem 1.1rem;text-align:left;cursor:pointer;transition:all .2s;display:flex;align-items:center;gap:.75rem;line-height:1.35;}
+.ans-btn:not([disabled]):hover{border-color:var(--tq);background:rgba(53,200,213,.07);}
+.ans-btn[disabled]{cursor:default;}
+.ans-letter{display:flex;align-items:center;justify-content:center;min-width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.07);font-size:.78rem;font-weight:700;flex-shrink:0;}
+.ans-btn.correct{border-color:var(--easy);background:rgba(34,197,94,.1);color:var(--easy);}
+.ans-btn.correct .ans-letter{background:var(--easy);color:#fff;}
+.ans-btn.wrong{border-color:var(--hard);background:rgba(239,68,68,.1);color:var(--hard);}
+.ans-btn.wrong .ans-letter{background:var(--hard);color:#fff;}
+.feedback{font-size:.88rem;font-weight:600;text-align:center;padding:.5rem;border-radius:.5rem;opacity:0;transition:opacity .3s;margin-top:.75rem;}
+.feedback.on{opacity:1;}
+.fb-ok{color:var(--easy);}
+.fb-ko{color:var(--hard);}
+.next-wrap{margin-top:auto;padding-top:1.2rem;}
+
+/* ── RESULTS ── */
+#screen-results .inner,
+#screen-presults .inner{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:2rem 1.5rem;text-align:center;max-width:420px;margin:0 auto;width:100%;}
+.score-ring{width:140px;height:140px;border-radius:50%;border:3px solid var(--tq);background:rgba(53,200,213,.07);display:flex;flex-direction:column;align-items:center;justify-content:center;margin-bottom:1.5rem;position:relative;}
+.score-ring::before{content:'';position:absolute;inset:7px;border-radius:50%;border:1px solid rgba(53,200,213,.2);}
+.score-num{font-size:2.8rem;font-weight:800;color:var(--tq);line-height:1;}
+.score-of{font-size:.82rem;color:var(--muted);font-weight:500;}
+.res-title{font-size:1.5rem;font-weight:700;margin-bottom:.5rem;}
+.res-msg{font-size:.88rem;color:var(--muted);margin-bottom:2rem;line-height:1.6;max-width:300px;}
+
+/* ── LEADERBOARD ── */
+#screen-leaderboard .inner{flex:1;display:flex;flex-direction:column;padding:1.5rem;max-width:520px;margin:0 auto;width:100%;}
+.lb-head{text-align:center;margin-bottom:1.5rem;}
+.lb-title{font-size:1.4rem;font-weight:700;margin-bottom:.25rem;}
+.lb-sub{font-size:.8rem;color:var(--muted);}
+.lb-list{flex:1;display:flex;flex-direction:column;gap:.55rem;margin-bottom:1.5rem;}
+.lb-item{background:var(--card);border:1px solid var(--border);border-radius:.8rem;padding:.85rem 1rem;display:flex;align-items:center;gap:.9rem;}
+.lb-item.r1{border-color:rgba(255,215,0,.4);background:rgba(255,215,0,.04);}
+.lb-item.r2{border-color:rgba(192,192,192,.3);}
+.lb-item.r3{border-color:rgba(205,127,50,.3);}
+.lb-item.me{border-color:var(--tq);background:rgba(53,200,213,.05);}
+.lb-rank{font-size:1.1rem;font-weight:800;min-width:30px;text-align:center;}
+.lb-pseudo{flex:1;font-weight:600;font-size:.93rem;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;}
+.lb-right{text-align:right;flex-shrink:0;}
+.lb-score{font-weight:700;color:var(--tq);font-size:.95rem;}
+.lb-date{font-size:.68rem;color:var(--muted);margin-top:.1rem;}
+.lb-empty{text-align:center;color:var(--muted);padding:2rem;font-size:.88rem;line-height:1.6;}
+
+/* ── PERMANENT MENU ── */
+#screen-permanent .inner{flex:1;padding:2rem 1.5rem;max-width:480px;margin:0 auto;width:100%;}
+.pm-title{font-size:1.5rem;font-weight:700;margin-bottom:.35rem;}
+.pm-sub{font-size:.87rem;color:var(--muted);margin-bottom:1.8rem;line-height:1.5;}
+.cat-grid{display:grid;grid-template-columns:1fr 1fr;gap:.75rem;margin-bottom:1.4rem;}
+.cat-btn{background:var(--card);border:1px solid var(--border);border-radius:.9rem;color:var(--text);font-family:'Outfit',sans-serif;font-size:.82rem;font-weight:500;padding:1rem .8rem;cursor:pointer;text-align:center;transition:all .2s;line-height:1.35;}
+.cat-btn:hover,.cat-btn.sel{border-color:var(--tq);background:rgba(53,200,213,.1);color:var(--tq);}
+.cat-ico{font-size:1.5rem;display:block;margin-bottom:.4rem;}
+</style>
+</head>
+<body>
+
+<!-- Loading overlay -->
+<div id="loading"><div class="spinner"></div></div>
+
+<!-- ══ LANDING ══════════════════════════════════════════════════ -->
+<div id="screen-landing" class="screen active">
+  <div class="lnd-glow"></div>
+  <svg class="lnd-cross" viewBox="0 0 440 440" fill="none">
+    <circle cx="220" cy="220" r="208" stroke="#35C8D5" stroke-width="1"/>
+    <circle cx="220" cy="220" r="155" stroke="#35C8D5" stroke-width="1"/>
+    <circle cx="220" cy="220" r="88" stroke="#35C8D5" stroke-width="1"/>
+    <line x1="0" y1="220" x2="440" y2="220" stroke="#35C8D5" stroke-width="1"/>
+    <line x1="220" y1="0" x2="220" y2="440" stroke="#35C8D5" stroke-width="1"/>
+    <line x1="176" y1="220" x2="264" y2="220" stroke="#35C8D5" stroke-width="2.5"/>
+    <line x1="220" y1="176" x2="220" y2="264" stroke="#35C8D5" stroke-width="2.5"/>
+  </svg>
+
+  <div class="badge">✈&nbsp; Jeu Concours</div>
+  <div class="lnd-club">Aéroclub de l'Île d'Yeu</div>
+  <div class="lnd-icao">LFEY &middot; Vendée &middot; France</div>
+  <h1 class="lnd-title">Quiz<br>Aéronautique</h1>
+  <div class="lnd-dates">Journées Portes Ouvertes &middot; 15 &amp; 16 Mai 2025</div>
+
+  <div class="prize-card">
+    <div class="prize-ico">🏆</div>
+    <div class="prize-label">À gagner</div>
+    <div class="prize-val">Une maquette DC-10 (MD-11)<br>aux couleurs d'UTA</div>
+  </div>
+
+  <button class="btn btn-tq" onclick="goRegister()">Participer au concours</button>
+  <div id="btn-club" style="display:none;">
+    <button class="btn btn-ghost" onclick="goPermanent()">Quiz du Club ✈</button>
+  </div>
+  <p class="lnd-note">1 participation par personne &bull; Tirage au sort parmi les meilleurs scores</p>
+</div>
+
+<!-- ══ REGISTER ════════════════════════════════════════════════ -->
+<div id="screen-register" class="screen">
+  <div class="inner">
+    <button class="back" onclick="show('landing')">← Retour</button>
+    <div class="form-title">Inscris-toi</div>
+    <div class="form-sub">Choisis un pseudo et entre ton email. Ton email sert uniquement à te contacter si tu gagnes.</div>
+    <div id="reg-err" class="err"></div>
+    <label class="lbl" for="f-pseudo">Ton pseudo</label>
+    <input class="inp" type="text" id="f-pseudo" placeholder="ex: AviAce42" maxlength="30" autocomplete="off">
+    <label class="lbl" for="f-email">Ton email</label>
+    <input class="inp" type="email" id="f-email" placeholder="prenom@exemple.com" autocomplete="email">
+    <button class="btn btn-tq" onclick="startContest()" style="margin-top:.3rem;">C'est parti ! →</button>
+  </div>
+</div>
+
+<!-- ══ QUIZ CONCOURS ═══════════════════════════════════════════ -->
+<div id="screen-quiz" class="screen">
+  <div class="quiz-header">
+    <div class="qh-row">
+      <span class="qh-count" id="qh-count">Q 1 / 20</span>
+      <span class="qh-score" id="qh-score">Score : 0</span>
+    </div>
+    <div class="prog-bg"><div class="prog-fill" id="qh-bar" style="width:0%"></div></div>
+  </div>
+  <div class="quiz-body">
+    <div class="diff-badge d1" id="q-diff"><span class="ddot"></span><span id="q-dlbl">Facile</span></div>
+    <div class="q-cat" id="q-cat"></div>
+    <div class="q-text" id="q-text"></div>
+    <div class="answers" id="q-ans"></div>
+    <div class="feedback" id="q-fb"></div>
+    <div class="next-wrap">
+      <button class="btn btn-tq" id="q-next" onclick="nextQ()" style="display:none;">Question suivante →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESULTS CONCOURS ════════════════════════════════════════ -->
+<div id="screen-results" class="screen">
+  <div class="inner">
+    <div class="score-ring">
+      <div class="score-num" id="r-score">0</div>
+      <div class="score-of" id="r-of">/ 20</div>
+    </div>
+    <div class="res-title" id="r-title">Bien joué !</div>
+    <div class="res-msg" id="r-msg">Ton score a été enregistré.</div>
+    <button class="btn btn-tq" onclick="goLeaderboard()">🏆 Voir le classement</button>
+    <button class="btn btn-ghost" onclick="goPermanent()">Quiz du Club ✈</button>
+  </div>
+</div>
+
+<!-- ══ LEADERBOARD ═════════════════════════════════════════════ -->
+<div id="screen-leaderboard" class="screen">
+  <div class="inner">
+    <button class="back" onclick="show('results')">← Retour</button>
+    <div class="lb-head">
+      <div class="lb-title">🏆 Classement</div>
+      <div class="lb-sub">JPO Aéroclub Île d'Yeu · 15 &amp; 16 Mai 2025</div>
+    </div>
+    <div class="lb-list" id="lb-list"><div class="lb-empty">Chargement…</div></div>
+    <button class="btn btn-ghost" onclick="goPermanent()">Quiz du Club ✈</button>
+  </div>
+</div>
+
+<!-- ══ MENU QUIZ DU CLUB ═══════════════════════════════════════ -->
+<div id="screen-permanent" class="screen">
+  <div class="inner">
+    <button class="back" onclick="show('landing')">← Retour</button>
+    <div class="pm-title">Quiz du Club ✈</div>
+    <div class="pm-sub">Choisis une catégorie et teste tes connaissances. Sans pression, juste pour le plaisir !</div>
+    <div class="cat-grid" id="cat-grid"></div>
+    <button class="btn btn-tq" id="perm-start" onclick="startPerm()" style="display:none;">Lancer →</button>
+  </div>
+</div>
+
+<!-- ══ QUIZ DU CLUB ════════════════════════════════════════════ -->
+<div id="screen-pquiz" class="screen">
+  <div class="quiz-header">
+    <div class="qh-row">
+      <span class="qh-count" id="pqh-count">Q 1 / ?</span>
+      <span class="qh-score" id="pqh-score">Score : 0</span>
+    </div>
+    <div class="prog-bg"><div class="prog-fill" id="pqh-bar" style="width:0%"></div></div>
+  </div>
+  <div class="quiz-body">
+    <div class="diff-badge d1" id="pq-diff"><span class="ddot"></span><span id="pq-dlbl">Facile</span></div>
+    <div class="q-cat" id="pq-cat"></div>
+    <div class="q-text" id="pq-text"></div>
+    <div class="answers" id="pq-ans"></div>
+    <div class="feedback" id="pq-fb"></div>
+    <div class="next-wrap">
+      <button class="btn btn-tq" id="pq-next" onclick="nextPQ()" style="display:none;">Question suivante →</button>
+    </div>
+  </div>
+</div>
+
+<!-- ══ RESULTS QUIZ DU CLUB ════════════════════════════════════ -->
+<div id="screen-presults" class="screen">
+  <div class="inner">
+    <div class="score-ring">
+      <div class="score-num" id="pr-score">0</div>
+      <div class="score-of" id="pr-of">/ 0</div>
+    </div>
+    <div class="res-title" id="pr-title">Bien joué !</div>
+    <div class="res-msg">Quiz du Club — aucun classement, juste pour le fun !</div>
+    <button class="btn btn-tq" onclick="goPermanent()">Rejouer une catégorie</button>
+    <button class="btn btn-ghost" onclick="show('landing')">Accueil</button>
+  </div>
+</div>
+
+<script>
+// ── CONFIG ──────────────────────────────────────────────────────────────────
+var SB_URL = 'https://mufwalyateisgoyimoqz.supabase.co';
+var SB_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im11ZndhbHlhdGVpc2dvaXltb3F6Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzgwNDc4MTYsImV4cCI6MjA5MzYyMzgxNn0.2QVNnPl4aXryPqyWzIvFTgz0HWKD9PBa0eOHGMajT9s';
+
+var CATS = [
+  {id:'Histoire',       lbl:'Histoire',          ico:'📖'},
+  {id:'Technique',      lbl:'Technique',         ico:'⚙️'},
+  {id:'Météo',          lbl:'Météo aéro',        ico:'🌤'},
+  {id:'Réglementation', lbl:'Réglementation',    ico:'📋'},
+  {id:'Culture aéro',   lbl:'Culture aéro',      ico:'✈️'},
+  {id:'Aéroclub Île d\'Yeu', lbl:'Aéroclub IY', ico:'🏝'}
+];
+
+var DIFF = {1:{lbl:'Facile',cls:'d1'},2:{lbl:'Moyen',cls:'d2'},3:{lbl:'Difficile',cls:'d3'}};
+var LTTRS = ['A','B','C','D'];
+
+// ── STATE ───────────────────────────────────────────────────────────────────
+var player = {pseudo:'',email:''};
+var cQs=[], cIdx=0, cScore=0;
+var pQs=[], pIdx=0, pScore=0;
+var selCat=null;
+
+// ── UTILS ───────────────────────────────────────────────────────────────────
+function load(on){ document.getElementById('loading').className = on ? 'on' : ''; }
+function show(id){ document.querySelectorAll('.screen').forEach(function(s){s.classList.remove('active');}); document.getElementById('screen-'+id).classList.add('active'); window.scrollTo(0,0); }
+function esc(s){ return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;'); }
+function shuffle(a){ var b=[].concat(a); for(var i=b.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=b[i];b[i]=b[j];b[j]=t;} return b; }
+
+async function sb(path, opts){
+  var res = await fetch(SB_URL+'/rest/v1/'+path, Object.assign({headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json'}}, opts||{}));
+  if(!res.ok) throw new Error('SB '+res.status);
+  if(res.status===204) return null;
+  return res.json();
+}
+
+// ── NAVIGATION ──────────────────────────────────────────────────────────────
+function goRegister(){ show('register'); }
+
+async function goLeaderboard(){ show('leaderboard'); await loadLB(); }
+
+async function goPermanent(){ show('permanent'); renderCats(); }
+
+// ── REGISTER ────────────────────────────────────────────────────────────────
+async function startContest(){
+  var pseudo = document.getElementById('f-pseudo').value.trim();
+  var email  = document.getElementById('f-email').value.trim();
+  var errEl  = document.getElementById('reg-err');
+  errEl.className='err';
+  if(!pseudo||pseudo.length<2){ errEl.textContent='Choisis un pseudo d\'au moins 2 caractères.'; errEl.className='err on'; return; }
+  if(!email||!email.includes('@')){ errEl.textContent='Entre un email valide.'; errEl.className='err on'; return; }
+  load(true);
+  try{
+    var check = await sb('scores?email=eq.'+encodeURIComponent(email)+'&select=id');
+    if(check && check.length>0){
+      load(false);
+      errEl.textContent='Cet email a déjà participé — un seul essai par personne !';
+      errEl.className='err on';
+      player={pseudo:pseudo,email:email};
+      document.getElementById('btn-club').style.display='block';
+      return;
+    }
+    player={pseudo:pseudo,email:email};
+    var data = await sb('questions?is_contest=eq.true&select=*');
+    cQs = shuffle(data).slice(0,20);
+    cIdx=0; cScore=0;
+    load(false);
+    show('quiz');
+    renderQ();
+  }catch(e){
+    load(false);
+    errEl.textContent='Erreur réseau. Vérifie ta connexion et réessaie.';
+    errEl.className='err on';
+  }
+}
+
+// ── QUIZ CONCOURS ────────────────────────────────────────────────────────────
+function renderQ(){
+  var q=cQs[cIdx], tot=cQs.length, d=DIFF[q.difficulty]||DIFF[1];
+  document.getElementById('qh-count').textContent='Q '+(cIdx+1)+' / '+tot;
+  document.getElementById('qh-score').textContent='Score : '+cScore;
+  document.getElementById('qh-bar').style.width=(cIdx/tot*100)+'%';
+  var db=document.getElementById('q-diff');
+  db.className='diff-badge '+d.cls;
+  db.innerHTML='<span class="ddot"></span><span>'+d.lbl+'</span>';
+  document.getElementById('q-cat').textContent=q.category;
+  document.getElementById('q-text').textContent=q.question;
+  var opts=q.options;
+  var wrap=document.getElementById('q-ans'); wrap.innerHTML='';
+  opts.forEach(function(opt,i){
+    var b=document.createElement('button');
+    b.className='ans-btn';
+    b.innerHTML='<span class="ans-letter">'+LTTRS[i]+'</span>'+esc(opt);
+    b.onclick=function(){ansQ(i,q.correct_index);};
+    wrap.appendChild(b);
+  });
+  var fb=document.getElementById('q-fb'); fb.className='feedback'; fb.textContent='';
+  document.getElementById('q-next').style.display='none';
+}
+
+function ansQ(chosen,correct){
+  var btns=document.querySelectorAll('#q-ans .ans-btn');
+  btns.forEach(function(b){b.setAttribute('disabled',true);});
+  btns[correct].classList.add('correct');
+  var fb=document.getElementById('q-fb');
+  if(chosen===correct){
+    cScore++;
+    document.getElementById('qh-score').textContent='Score : '+cScore;
+    fb.textContent='✓ Bonne réponse !'; fb.className='feedback fb-ok on';
+  } else {
+    btns[chosen].classList.add('wrong');
+    var ct=btns[correct].querySelector('.ans-letter').nextSibling;
+    fb.textContent='✗ La bonne réponse était : '+(ct?ct.textContent.trim():'?');
+    fb.className='feedback fb-ko on';
+  }
+  var isLast=(cIdx===cQs.length-1);
+  var nx=document.getElementById('q-next');
+  nx.textContent=isLast?'Voir mes résultats →':'Question suivante →';
+  nx.style.display='block';
+}
+
+async function nextQ(){
+  if(cIdx<cQs.length-1){ cIdx++; renderQ(); }
+  else { await finishContest(); }
+}
+
+async function finishContest(){
+  load(true);
+  try{
+    await sb('scores',{method:'POST',headers:{'apikey':SB_KEY,'Authorization':'Bearer '+SB_KEY,'Content-Type':'application/json','Prefer':'return=minimal'},body:JSON.stringify({pseudo:player.pseudo,email:player.email,score:cScore,total_questions:cQs.length})});
+    localStorage.setItem('aiy_email',player.email);
+    localStorage.setItem('aiy_pseudo',player.pseudo);
+    document.getElementById('btn-club').style.display='block';
+  }catch(e){ console.warn('score save failed',e); }
+  load(false);
+  document.getElementById('r-score').textContent=cScore;
+  document.getElementById('r-of').textContent='/ '+cQs.length;
+  var pct=cScore/cQs.length;
+  var title,msg;
+  if(cScore===cQs.length){ title='🎯 Score parfait !'; msg='Incroyable ! Tu as répondu correctement à toutes les questions. Tu es en lice pour la maquette !'; }
+  else if(pct>=0.8){ title='🚀 Excellent !'; msg='Très bon score ! Tu maîtrises bien le monde de l\'aéronautique.'; }
+  else if(pct>=0.5){ title='✈ Pas mal !'; msg='Bon score ! Continue à explorer l\'aéronautique.'; }
+  else { title='🛫 Bon début !'; msg='L\'aéronautique c\'est vaste — tu es sur la bonne piste !'; }
+  document.getElementById('r-title').textContent=title;
+  document.getElementById('r-msg').textContent=msg;
+  show('results');
+}
+
+// ── LEADERBOARD ──────────────────────────────────────────────────────────────
+async function loadLB(){
+  var el=document.getElementById('lb-list');
+  el.innerHTML='<div class="lb-empty">Chargement…</div>';
+  try{
+    var data=await sb('scores?select=pseudo,score,total_questions,played_at&order=score.desc,played_at.asc&limit=50');
+    if(!data||data.length===0){ el.innerHTML='<div class="lb-empty">Aucune participation pour l\'instant.<br>Sois le premier !</div>'; return; }
+    el.innerHTML='';
+    data.forEach(function(entry,i){
+      var rank=i+1;
+      var rc=rank===1?'r1':rank===2?'r2':rank===3?'r3':'';
+      var em=rank===1?'🥇':rank===2?'🥈':rank===3?'🥉':rank;
+      var isMe=(entry.pseudo===player.pseudo);
+      var dt=new Date(entry.played_at).toLocaleDateString('fr-FR',{day:'2-digit',month:'short'});
+      var div=document.createElement('div');
+      div.className='lb-item '+rc+(isMe?' me':'');
+      div.innerHTML='<div class="lb-rank">'+em+'</div><div class="lb-pseudo">'+esc(entry.pseudo)+(isMe?' <span style="font-size:.68rem;color:var(--tq)">(toi)</span>':'')+'</div><div class="lb-right"><div class="lb-score">'+entry.score+' / '+entry.total_questions+'</div><div class="lb-date">'+dt+'</div></div>';
+      el.appendChild(div);
+    });
+  }catch(e){
+    el.innerHTML='<div class="lb-empty">Impossible de charger le classement.</div>';
+  }
+}
+
+// ── QUIZ DU CLUB ─────────────────────────────────────────────────────────────
+function renderCats(){
+  var grid=document.getElementById('cat-grid'); grid.innerHTML='';
+  selCat=null;
+  document.getElementById('perm-start').style.display='none';
+  CATS.forEach(function(cat){
+    var b=document.createElement('button');
+    b.className='cat-btn';
+    b.innerHTML='<span class="cat-ico">'+cat.ico+'</span>'+cat.lbl;
+    b.onclick=function(){ document.querySelectorAll('.cat-btn').forEach(function(x){x.classList.remove('sel');}); b.classList.add('sel'); selCat=cat.id; document.getElementById('perm-start').style.display='block'; };
+    grid.appendChild(b);
+  });
+}
+
+async function startPerm(){
+  if(!selCat) return;
+  load(true);
+  try{
+    var data=await sb('questions?is_contest=eq.false&category=eq.'+encodeURIComponent(selCat)+'&select=*');
+    if(!data||data.length===0){ load(false); alert('Pas encore de questions dans cette catégorie — reviens bientôt !'); return; }
+    pQs=shuffle(data); pIdx=0; pScore=0;
+    load(false); show('pquiz'); renderPQ();
+  }catch(e){ load(false); alert('Erreur réseau. Réessaie.'); }
+}
+
+function renderPQ(){
+  var q=pQs[pIdx], tot=pQs.length, d=DIFF[q.difficulty]||DIFF[1];
+  document.getElementById('pqh-count').textContent='Q '+(pIdx+1)+' / '+tot;
+  document.getElementById('pqh-score').textContent='Score : '+pScore;
+  document.getElementById('pqh-bar').style.width=(pIdx/tot*100)+'%';
+  var db=document.getElementById('pq-diff'); db.className='diff-badge '+d.cls;
+  db.innerHTML='<span class="ddot"></span><span>'+d.lbl+'</span>';
+  document.getElementById('pq-cat').textContent=q.category;
+  document.getElementById('pq-text').textContent=q.question;
+  var wrap=document.getElementById('pq-ans'); wrap.innerHTML='';
+  q.options.forEach(function(opt,i){
+    var b=document.createElement('button'); b.className='ans-btn';
+    b.innerHTML='<span class="ans-letter">'+LTTRS[i]+'</span>'+esc(opt);
+    b.onclick=function(){ansPQ(i,q.correct_index);};
+    wrap.appendChild(b);
+  });
+  var fb=document.getElementById('pq-fb'); fb.className='feedback'; fb.textContent='';
+  document.getElementById('pq-next').style.display='none';
+}
+
+function ansPQ(chosen,correct){
+  var btns=document.querySelectorAll('#pq-ans .ans-btn');
+  btns.forEach(function(b){b.setAttribute('disabled',true);});
+  btns[correct].classList.add('correct');
+  var fb=document.getElementById('pq-fb');
+  if(chosen===correct){ pScore++; document.getElementById('pqh-score').textContent='Score : '+pScore; fb.textContent='✓ Bonne réponse !'; fb.className='feedback fb-ok on'; }
+  else { btns[chosen].classList.add('wrong'); var ct=btns[correct].querySelector('.ans-letter').nextSibling; fb.textContent='✗ La bonne réponse était : '+(ct?ct.textContent.trim():'?'); fb.className='feedback fb-ko on'; }
+  var isLast=(pIdx===pQs.length-1);
+  var nx=document.getElementById('pq-next'); nx.textContent=isLast?'Voir mes résultats →':'Question suivante →'; nx.style.display='block';
+}
+
+function nextPQ(){
+  if(pIdx<pQs.length-1){ pIdx++; renderPQ(); }
+  else {
+    document.getElementById('pr-score').textContent=pScore;
+    document.getElementById('pr-of').textContent='/ '+pQs.length;
+    var pct=pScore/pQs.length;
+    document.getElementById('pr-title').textContent=pct===1?'🎯 Parfait !':pct>=0.7?'🚀 Excellent !':'✈ Continue !';
+    show('presults');
+  }
+}
+
+// ── INIT ─────────────────────────────────────────────────────────────────────
+(function(){
+  var em=localStorage.getItem('aiy_email');
+  var ps=localStorage.getItem('aiy_pseudo');
+  if(em&&ps){
+    player={pseudo:ps,email:em};
+    document.getElementById('btn-club').style.display='block';
+    document.getElementById('f-email').value=em;
+    document.getElementById('f-pseudo').value=ps;
+  }
+})();
+</script>
+</body>
+</html>
