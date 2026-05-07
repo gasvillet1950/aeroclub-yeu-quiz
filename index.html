@@ -8,17 +8,9 @@
 <style>
 *{box-sizing:border-box;margin:0;padding:0;}
 :root{
-  --bg:#F7F4EE;
-  --navy:#1A2F6E;
-  --tq:#35C8D5;
-  --tq2:#25A8B5;
-  --white:#FFFFFF;
-  --easy:#16A34A;
-  --med:#EA580C;
-  --hard:#DC2626;
-  --border:rgba(26,47,110,0.13);
-  --muted:rgba(26,47,110,0.45);
-  --shadow:0 2px 16px rgba(26,47,110,0.08);
+  --bg:#F7F4EE;--navy:#1A2F6E;--tq:#35C8D5;--tq2:#25A8B5;--white:#FFFFFF;
+  --easy:#16A34A;--med:#EA580C;--hard:#DC2626;
+  --border:rgba(26,47,110,0.13);--muted:rgba(26,47,110,0.45);--shadow:0 2px 16px rgba(26,47,110,0.08);
 }
 html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color:var(--navy);overflow-x:hidden;}
 .screen{display:none;min-height:100dvh;flex-direction:column;}
@@ -29,7 +21,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .spinner{width:38px;height:38px;border:3px solid var(--border);border-top-color:var(--tq);border-radius:50%;animation:spin .8s linear infinite;}
 @keyframes spin{to{transform:rotate(360deg)}}
 .load-txt{font-size:.82rem;color:var(--muted);font-weight:500;}
-.btn{border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.97rem;padding:.95rem 1.8rem;cursor:pointer;width:100%;max-width:380px;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:.5rem;letter-spacing:.01em;}
+.btn{border:none;border-radius:14px;font-family:'Outfit',sans-serif;font-weight:700;font-size:.97rem;padding:.95rem 1.8rem;cursor:pointer;width:100%;max-width:380px;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:.5rem;}
 .btn-navy{background:var(--navy);color:#fff;}
 .btn-navy:hover{background:#142560;transform:translateY(-1px);box-shadow:0 6px 20px rgba(26,47,110,.22);}
 .btn-tq{background:var(--tq);color:var(--navy);}
@@ -86,8 +78,11 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .pts-c3{color:var(--hard);}
 
 /* QUIZ */
-.quiz-hdr{padding:1.2rem 1.5rem .5rem;max-width:560px;margin:0 auto;width:100%;}
-.qh-row{display:flex;justify-content:space-between;align-items:center;margin-bottom:.65rem;}
+.quiz-hdr{padding:1rem 1.5rem .5rem;max-width:560px;margin:0 auto;width:100%;}
+.qh-top{display:flex;align-items:center;gap:.6rem;margin-bottom:.65rem;}
+.abandon-btn{background:none;border:none;color:var(--muted);font-family:'Outfit',sans-serif;font-size:.78rem;font-weight:600;cursor:pointer;padding:0;display:flex;align-items:center;gap:.25rem;flex-shrink:0;}
+.abandon-btn:hover{color:var(--navy);}
+.qh-center{flex:1;display:flex;flex-direction:column;align-items:flex-end;gap:.1rem;}
 .qh-count{font-size:.78rem;color:var(--muted);font-weight:600;}
 .qh-score{font-size:.78rem;font-weight:700;color:var(--navy);}
 .prog-bg{background:var(--border);border-radius:4px;height:5px;overflow:hidden;}
@@ -122,6 +117,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .expl-box{background:rgba(53,200,213,.07);border:1.5px solid rgba(53,200,213,.2);border-radius:12px;padding:.85rem 1rem;margin-top:.7rem;font-size:.82rem;line-height:1.6;color:var(--navy);display:none;}
 .expl-box.on{display:block;}
 .expl-box strong{color:var(--tq2);font-weight:700;}
+.expl-source{display:block;font-size:.7rem;color:var(--muted);margin-top:.4rem;}
 .next-wrap{margin-top:auto;padding-top:1.1rem;}
 
 /* RESULTS */
@@ -136,7 +132,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
 .review-title{font-size:.72rem;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--muted);margin-bottom:.7rem;text-align:left;}
 .review-item{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:.85rem 1rem;margin-bottom:.5rem;text-align:left;}
 .review-q{font-size:.82rem;font-weight:600;color:var(--navy);margin-bottom:.4rem;line-height:1.35;}
-.review-ans{font-size:.78rem;display:flex;align-items:center;gap:.4rem;}
+.review-ans{font-size:.78rem;display:flex;align-items:flex-start;gap:.4rem;}
 .review-wrong{color:var(--hard);}
 .review-right{color:var(--easy);}
 .share-btn{background:var(--white);border:1.5px solid var(--border);border-radius:12px;padding:.75rem 1.4rem;font-family:'Outfit',sans-serif;font-size:.85rem;font-weight:600;color:var(--navy);cursor:pointer;display:flex;align-items:center;gap:.4rem;transition:all .18s;max-width:380px;width:100%;justify-content:center;margin-bottom:.6rem;}
@@ -257,12 +253,15 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
   </div>
 </div>
 
-<!-- QUIZ (concours + club partagent le même écran) -->
+<!-- QUIZ (concours + club) -->
 <div id="screen-quiz" class="screen">
   <div class="quiz-hdr">
-    <div class="qh-row">
-      <span class="qh-count" id="qh-count">Q 1 / 20</span>
-      <span class="qh-score" id="qh-score">0 pt</span>
+    <div class="qh-top">
+      <button class="abandon-btn" onclick="abandonQuiz()">← Menu</button>
+      <div class="qh-center">
+        <span class="qh-count" id="qh-count">Q 1 / 20</span>
+        <span class="qh-score" id="qh-score">0 pt</span>
+      </div>
     </div>
     <div class="prog-bg"><div class="prog-fill" id="qh-bar" style="width:0%"></div></div>
   </div>
@@ -295,7 +294,8 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
     </div>
     <button class="share-btn" onclick="shareScore()">📤 Partager mon score</button>
     <button class="btn btn-navy" onclick="goLeaderboard(false)" style="margin-bottom:.6rem;">🏆 Voir le classement</button>
-    <button class="btn btn-outline" onclick="goClubSetup()">Tester mes connaissances ✈</button>
+    <button class="btn btn-tq" onclick="goClubSetup()" style="margin-bottom:.6rem;">Tester mes connaissances ✈</button>
+    <button class="btn btn-outline" onclick="show('landing')">Retour à l'accueil</button>
   </div>
 </div>
 
@@ -317,7 +317,7 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
   <div class="inner">
     <button class="back" onclick="show('landing')">← Retour</button>
     <div class="fun-title">Quiz du Club ✈</div>
-    <div class="fun-sub">Choisis une catégorie et un nombre de questions. Mis à jour régulièrement !</div>
+    <div class="fun-sub">Choisis une catégorie et un nombre de questions.</div>
     <div class="cat-grid" id="club-cat-grid"></div>
     <div id="club-qcount-wrap" style="display:none;">
       <div style="font-size:.72rem;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);margin-bottom:.6rem;">Nombre de questions</div>
@@ -335,14 +335,14 @@ html,body{height:100%;font-family:'Outfit',sans-serif;background:var(--bg);color
       <div class="score-of" id="cr-of">/ 0</div>
     </div>
     <div class="res-title" id="cr-title">Bien joué !</div>
-    <div class="res-msg">Quiz du Club — sans pression, juste pour apprendre !</div>
+    <div class="res-msg" id="cr-msg">Quiz du Club — sans pression, juste pour apprendre !</div>
     <div class="review-section" id="club-review-section" style="display:none;">
       <div class="review-title">Questions ratées</div>
       <div id="club-review-list"></div>
     </div>
     <button class="share-btn" onclick="shareClubScore()">📤 Partager mon score</button>
     <button class="btn btn-tq" onclick="goClubSetup()" style="margin-bottom:.6rem;">Rejouer une catégorie</button>
-    <button class="btn btn-outline" onclick="show('landing')">Accueil</button>
+    <button class="btn btn-outline" onclick="show('landing')">Retour à l'accueil</button>
   </div>
 </div>
 
@@ -401,7 +401,6 @@ function launchConfetti(){
   frame();
 }
 
-// ── NAVIGATION ─────────────────────────────────────────────────────
 function goRegister(){show('register');}
 
 function goClubSetup(){
@@ -418,7 +417,6 @@ function goClubSetup(){
     b.onclick=function(){
       document.querySelectorAll('#club-cat-grid .cat-btn').forEach(function(x){x.classList.remove('sel');});
       b.classList.add('sel');selClubCat=cat.id;
-      // Afficher le sélecteur de questions
       var wrap=document.getElementById('club-qcount-wrap');
       var qg=document.getElementById('club-qc-grid');
       wrap.style.display='block';qg.innerHTML='';
@@ -435,12 +433,16 @@ function goClubSetup(){
   });
 }
 
+function abandonQuiz(){
+  if(mode==='club') goClubSetup();
+  else show('landing');
+}
+
 async function goLeaderboard(fromLanding){
   document.getElementById('lb-back').onclick=fromLanding?function(){show('landing');}:function(){show('results');};
   show('leaderboard');await loadLB();
 }
 
-// ── CONTEST ─────────────────────────────────────────────────────────
 async function startContest(){
   var pseudo=document.getElementById('f-pseudo').value.trim();
   var email=document.getElementById('f-email').value.trim();
@@ -459,11 +461,7 @@ async function startContest(){
     }
     player={pseudo:pseudo,email:email};
     load(false);show('intro');
-  }catch(e){
-    load(false);
-    errEl.textContent='Erreur réseau. Vérifie ta connexion et réessaie.';
-    errEl.className='err on';
-  }
+  }catch(e){load(false);errEl.textContent='Erreur réseau. Vérifie ta connexion et réessaie.';errEl.className='err on';}
 }
 
 async function launchContest(){
@@ -476,7 +474,6 @@ async function launchContest(){
   }catch(e){load(false);toast('Erreur de chargement.');}
 }
 
-// ── QUIZ DU CLUB ─────────────────────────────────────────────────────
 async function startClub(){
   if(!selClubCat) return;
   load(true);
@@ -489,7 +486,6 @@ async function startClub(){
   }catch(e){load(false);toast('Erreur réseau.');}
 }
 
-// ── QUIZ RENDER ──────────────────────────────────────────────────────
 function renderQ(){
   var q=qs[qi],tot=qs.length,d=DIFF[q.difficulty]||DIFF[1];
   var isContest=(mode==='contest');
@@ -520,7 +516,6 @@ function ansQ(chosen,correct,q){
   var fb=document.getElementById('q-fb');
   var isCorrect=(chosen===correct);
   answers.push({q:q,chosen:chosen,correct:correct,ok:isCorrect});
-
   if(isCorrect){
     var earned=(mode==='contest')?d.pts:1;
     pts+=earned;
@@ -531,7 +526,6 @@ function ansQ(chosen,correct,q){
   } else {
     btns[chosen].classList.add('wrong');
     if(mode==='contest'){
-      // Anti-triche : ne pas révéler la bonne réponse
       fb.textContent='✗ Mauvaise réponse…';
     } else {
       btns[correct].classList.add('correct');
@@ -539,14 +533,17 @@ function ansQ(chosen,correct,q){
     }
     fb.className='feedback fb-ko on';
   }
-
-  // Explication uniquement en mode club
+  // Explication mode club uniquement — Source en gris/petit
   if(mode==='club' && q.explanation){
     var ex=document.getElementById('q-expl');
-    ex.innerHTML='<strong>💡 Le saviez-vous ?</strong><br>'+esc(q.explanation);
+    var expl=q.explanation;
+    var srcIdx=expl.indexOf('Source :');
+    var main=srcIdx>-1?expl.substring(0,srcIdx).trim():expl;
+    var src=srcIdx>-1?expl.substring(srcIdx).trim():'';
+    ex.innerHTML='<strong>💡 Le saviez-vous ?</strong><br>'+esc(main)
+      +(src?'<span class="expl-source">'+esc(src)+'</span>':'');
     ex.className='expl-box on';
   }
-
   var isLast=(qi===qs.length-1);
   var nx=document.getElementById('q-next');
   nx.textContent=isLast?'Voir mes résultats →':'Question suivante →';
@@ -561,7 +558,6 @@ async function nextQ(){
   }
 }
 
-// ── FINISH ────────────────────────────────────────────────────────────
 async function finishContest(){
   load(true);
   try{
@@ -579,7 +575,7 @@ function finishClub(){
   if(pts===qs.length) setTimeout(launchConfetti,400);
 }
 
-function showResults(screen,scoreId,ofId,titleId,msgId,score,max,reviewSecId,reviewListId,isContest){
+function showResults(screen,scoreId,ofId,titleId,msgId,score,max,revSecId,revListId,isContest){
   document.getElementById(scoreId).textContent=score;
   document.getElementById(ofId).textContent=(isContest?'pts / ':'/ ')+max;
   var pct=max>0?score/max:0;
@@ -591,8 +587,7 @@ function showResults(screen,scoreId,ofId,titleId,msgId,score,max,reviewSecId,rev
   document.getElementById(titleId).textContent=title;
   document.getElementById(msgId).textContent=msg;
   var wrong=answers.filter(function(a){return !a.ok;});
-  var sec=document.getElementById(reviewSecId);
-  var lst=document.getElementById(reviewListId);
+  var sec=document.getElementById(revSecId);var lst=document.getElementById(revListId);
   if(wrong.length>0){
     sec.style.display='block';lst.innerHTML='';
     wrong.forEach(function(a){
@@ -606,15 +601,14 @@ function showResults(screen,scoreId,ofId,titleId,msgId,score,max,reviewSecId,rev
   show(screen);
 }
 
-function shareScore(){doShare(pts,maxPts,'concours');}
-function shareClubScore(){doShare(pts,qs.length,'club');}
-function doShare(score,max,type){
+function shareScore(){doShare(pts,maxPts);}
+function shareClubScore(){doShare(pts,qs.length);}
+function doShare(score,max){
   var txt='Je viens de faire '+score+'/'+max+' au Quiz Aéronautique de l\'Aéroclub de l\'Île d\'Yeu ! 🛩 Essaie aussi : '+SITE;
   if(navigator.share){navigator.share({title:'Quiz Aéroclub Île d\'Yeu',text:txt,url:SITE}).catch(function(){});}
   else{navigator.clipboard.writeText(txt).then(function(){toast('Résultat copié !')}).catch(function(){toast('Lien : '+SITE);});}
 }
 
-// ── LEADERBOARD ── top 20 + position joueur si hors top 20 ──────────
 async function loadLB(){
   var el=document.getElementById('lb-list');el.innerHTML='<div class="lb-empty">Chargement…</div>';
   try{
@@ -622,10 +616,9 @@ async function loadLB(){
     if(!data||data.length===0){el.innerHTML='<div class="lb-empty">Aucune participation pour l\'instant.<br>Sois le premier !</div>';return;}
     var maxScore=Math.max.apply(null,data.map(function(d){return d.score;}));
     el.innerHTML='';
-    var top20=data.slice(0,20);
     var myRank=-1;
     data.forEach(function(e,i){if(e.pseudo===player.pseudo&&myRank===-1) myRank=i+1;});
-    top20.forEach(function(e,i){el.appendChild(makeLBItem(e,i+1,e.pseudo===player.pseudo,maxScore));});
+    data.slice(0,20).forEach(function(e,i){el.appendChild(makeLBItem(e,i+1,e.pseudo===player.pseudo,maxScore));});
     if(myRank>20){
       var sep=document.createElement('div');sep.className='lb-sep';sep.textContent='• • •';el.appendChild(sep);
       el.appendChild(makeLBItem(data[myRank-1],myRank,true,maxScore));
@@ -645,15 +638,10 @@ function makeLBItem(entry,rank,isMe,maxScore){
   return div;
 }
 
-// ── INIT ─────────────────────────────────────────────────────────────
 (function(){
   var em=localStorage.getItem('aiy_email');
   var ps=localStorage.getItem('aiy_pseudo');
-  if(em&&ps){
-    player={pseudo:ps,email:em};
-    document.getElementById('f-email').value=em;
-    document.getElementById('f-pseudo').value=ps;
-  }
+  if(em&&ps){player={pseudo:ps,email:em};document.getElementById('f-email').value=em;document.getElementById('f-pseudo').value=ps;}
 })();
 </script>
 </body>
